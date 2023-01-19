@@ -1,0 +1,1 @@
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process -Verb RunAs powershell -ArgumentList '-NoProfile -noexit -ExecutionPolicy Bypass -File \"%CD%\shecan_dns.ps1\" -_vLUF %_vLUF%'"
