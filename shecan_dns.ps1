@@ -10,27 +10,25 @@ if ([string]::IsNullOrEmpty($a)) {
 }else {
     $adapterName = $a   
 }
-$confirm = Read-Host "Is this the correct ethernet adapter: $adapterName ? (yes/no)"
+
+Write-Host -NoNewline "Is this the correct ethernet adapter: '"
+Write-Host -NoNewline "$adapterName" -ForegroundColor Green
+Write-Host -NoNewline "' ? (yes/no):"
+
+$confirm = Read-Host
 
 if ($confirm -eq "yes") {
     $adapter = Get-NetAdapter -Name $adapterName
     if ($d) {
-        # Set-DnsClientServerAddress -InterfaceAlias $adapter.InterfaceAlias -ServerAddresses $null
-        # Clear-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex
         $ipv4 = Get-NetIPInterface -InterfaceIndex $adapter.ifIndex | Where-Object {$_.AddressFamily -eq "IPv4"}
-        # $ipv4.DnsServer = $null
-        # Set-DnsClientServerAddress -InterfaceIndex $ipv4.ifIndex -ServerAddresses $ipv4.DnsServer
-        # Set-DnsClient -InterfaceIndex $ipv4.ifIndex -UseSuffixWhileRegistering $false -UseDomainNameDevolution $false -UseDhcp $true
         Set-DnsClientServerAddress -InterfaceIndex $ipv4.ifIndex -ResetServerAddresses
-        Write-Host "DNS settings have been reset"
+        Write-Host "`nDNS settings have been reset`n"
     } else {
         $primaryDnsServer = "178.22.122.100" # Change to the desired primary DNS server IP
         $secondaryDnsServer = "185.51.200.2" # Change to the desired secondary DNS server IP
-        # $dnsConfig = (Get-NetIPConfiguration -InterfaceAlias $adapter.InterfaceAlias).DNSServer
-        # $dnsConfig.ServerAddresses = 
-        # Set-DnsClientServerAddress -InterfaceAlias $adapter.InterfaceAlias -ServerAddresses $dnsConfig.ServerAddresses
         Set-DnsClientServerAddress -InterfaceAlias $adapter.InterfaceAlias -ServerAddresses ($primaryDnsServer, $secondaryDnsServer)
+        Write-Host "`nDome, DNS settings have been set`n"
     }
 } else {
-    Write-Host "Aborted, Please select the correct adapter and re-run the script"
+    Write-Host "`nAborted, Please select the correct adapter and re-run the script`n"
 }
