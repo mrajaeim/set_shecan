@@ -1,6 +1,6 @@
 param (    
     [string]$a,
-    [switch]$d=$False
+    [switch]$r=$False
 )
 
 if ([string]::IsNullOrEmpty($a)) {
@@ -19,7 +19,7 @@ $confirm = Read-Host
 
 if ($confirm -eq "yes") {
     $adapter = Get-NetAdapter -Name $adapterName
-    if ($d) {
+    if ($r) {
         $ipv4 = Get-NetIPInterface -InterfaceIndex $adapter.ifIndex | Where-Object {$_.AddressFamily -eq "IPv4"}
         Set-DnsClientServerAddress -InterfaceIndex $ipv4.ifIndex -ResetServerAddresses
         Write-Host "`nDNS settings have been reset`n"
