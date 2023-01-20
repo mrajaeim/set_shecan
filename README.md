@@ -49,3 +49,8 @@ For example:
 | -r | Reset flag |
 | -d1 | Primary DNS address |
 | -d2 | Secondary Primary DNS address |
+
+## 🤝 Contributing
+
+We welcome all contributions.
+
