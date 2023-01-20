@@ -1,6 +1,8 @@
 param (    
     [string]$a,
-    [switch]$r=$False
+    [string]$d1 = "178.22.122.100",# Change to the desired primary DNS server IP
+    [string]$d2  = "185.51.200.2",# Change to the desired secondary DNS server IP
+    [switch]$r
 )
 
 if ([string]::IsNullOrEmpty($a)) {
@@ -24,9 +26,7 @@ if ($confirm -eq "yes") {
         Set-DnsClientServerAddress -InterfaceIndex $ipv4.ifIndex -ResetServerAddresses
         Write-Host "`nDNS settings have been reset`n"
     } else {
-        $primaryDnsServer = "178.22.122.100" # Change to the desired primary DNS server IP
-        $secondaryDnsServer = "185.51.200.2" # Change to the desired secondary DNS server IP
-        Set-DnsClientServerAddress -InterfaceAlias $adapter.InterfaceAlias -ServerAddresses ($primaryDnsServer, $secondaryDnsServer)
+        Set-DnsClientServerAddress -InterfaceAlias $adapter.InterfaceAlias -ServerAddresses ($d1, $d2)
         Write-Host "`nDome, DNS settings have been set`n"
     }
 } else {
