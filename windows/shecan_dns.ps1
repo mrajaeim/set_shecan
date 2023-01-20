@@ -27,7 +27,7 @@ if ($confirm -eq "yes") {
         Write-Host "`nDNS settings have been reset`n"
     } else {
         Set-DnsClientServerAddress -InterfaceAlias $adapter.InterfaceAlias -ServerAddresses ($d1, $d2)
-        Write-Host "`nDome, DNS settings have been set`n"
+        Write-Host "`nDone, DNS settings have been set`n"
     }
 } else {
     Write-Host "`nAborted, Please select the correct adapter and re-run the script`n"
