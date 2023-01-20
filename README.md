@@ -53,4 +53,3 @@ For example:
 ## 🤝 Contributing
 
 We welcome all contributions.
-
