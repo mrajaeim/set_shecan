@@ -3,7 +3,7 @@
 ## Supported OS
 
 - [x] Windows (PowerShell Script)
-- [ ] Linux
+- [ ] Linux (Currently version is not tested yet)
 
 ## ✨ Features
 
